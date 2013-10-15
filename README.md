@@ -37,7 +37,7 @@ follow the nickname and then a free-form hsub passphrase.
 Then run *aampy* and it will download each message from a.a.m and test
 to see if a match results with any of the hsub passphrases in your
 hsubpass.txt file.  If a match occurs, it will add that message to the
-file ```messages_<nickname>.txt```.
+file ```messages_<nickname>_<id>.txt```.
 For example if aampy found two messages for nickname bob and one for nickname 22,
-there would be two files, ```messages_bob.txt``` with two encrypted messages in it
-and ```messages_22.txt``` with a single encrypted message in it.  
+there would be two files, ```messages_bob_abcde.txt``` with two encrypted messages in it
+and ```messages_22_12345.txt``` with a single encrypted message in it.  

@@ -76,8 +76,10 @@ def aam():
                         #if match: write message to file
                         if match:
                             print 'Found a message for nickname '+nick
-                            with open('messages_'+nick+'.txt', "a") as f:
+                            with open('message_'+nick+'_'+message_id[1:6]+'.txt', "w") as f:
                                 f.write(message.as_string()+'\n')
+                                print 'encrypted message stored in message_'+nick+'_'+message_id[1:6]+'.txt'
+
 
     print 'End of messages.'
 

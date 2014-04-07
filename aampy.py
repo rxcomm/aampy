@@ -29,7 +29,7 @@ import string
 import sys
 
 GROUP = 'alt.anonymous.messages'
-NEWSSERVER = 'news.mixmin.net'
+NEWSSERVER = 'localhost'
 NEWSPORT = 119
 
 def aam():

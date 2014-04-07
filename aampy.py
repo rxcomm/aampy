@@ -29,23 +29,20 @@ import string
 import sys
 
 GROUP = 'alt.anonymous.messages'
-NEWSSERVER = 'localhost'
+NEWSSERVER = 'news.mixmin.net'
 NEWSPORT = 119
 
-try:
-    ans = raw_input('How many days of '+GROUP+' history do you want to scan? ')
-    DAYSHISTORY = float(ans)
-except ValueError:
-    print 'Response must be a number!'
-    sys.exit(1)
-
 def aam():
-    timeStamp = time.time() - DAYSHISTORY * 86400
-    YYMMDD = time.strftime('%y%m%d', time.gmtime(timeStamp))
-    HHMMSS = time.strftime('%H%M%S', time.gmtime(timeStamp))
-
     try:
         hsubpassphrases = readDict("hsubpass.txt")
+        try:
+            timeStamp = float(hsubpassphrases['time'])
+            del hsubpassphrases['time']
+        except KeyError:
+            timeStamp = time.time() - 3600.0
+            print 'Reading messages from last hour (no timestamp in hsubpass.txt)'
+        YYMMDD = time.strftime('%y%m%d', time.gmtime(timeStamp))
+        HHMMSS = time.strftime('%H%M%S', time.gmtime(timeStamp))
     except IOError:
         print 'hsubpass.txt file not found - exiting!'
         sys.exit(1)
@@ -82,11 +79,18 @@ def aam():
 
 
     print 'End of messages.'
+    hsubpassphrases['time'] = time.time()
+    writeDict('hsubpass.txt', hsubpassphrases)
 
 def readDict(file):
     with open(file, 'r') as f:
         d = dict(line.strip().split(' ', 1) for line in f)
     return d
+
+def writeDict(file, d):
+    with open(file, 'w') as f:
+        for key, item in d.iteritems():
+            f.write(key + ' ' + str(item) + '\n')
 
 if __name__ == '__main__':
     aam()

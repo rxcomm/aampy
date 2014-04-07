@@ -41,6 +41,7 @@ def aam():
         except KeyError:
             timeStamp = time.time() - 3600.0
             print 'Reading messages from last hour (no timestamp in hsubpass.txt)'
+        curTime = time.time()
         YYMMDD = time.strftime('%y%m%d', time.gmtime(timeStamp))
         HHMMSS = time.strftime('%H%M%S', time.gmtime(timeStamp))
     except IOError:
@@ -79,7 +80,7 @@ def aam():
 
 
     print 'End of messages.'
-    hsubpassphrases['time'] = time.time()
+    hsubpassphrases['time'] = curTime
     writeDict('hsubpass.txt', hsubpassphrases)
 
 def readDict(file):
